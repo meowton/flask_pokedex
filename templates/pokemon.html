@@ -1,0 +1,67 @@
+{% extends 'body.html' %}
+
+{% block content %}
+  <div class="container has-text-centered padded-2_0">
+    <article class="media">
+      <figure class="media-left has-text-centered">
+        <p class="is-size-7">Normal:</p>
+        <p class="image is-96x96">
+          <img src="{{ poke_info['sprites']['front_default'] }}" alt="[sem sprite]">
+        </p>
+        <p class="image is-96x96">
+          <img src="{{ poke_info['sprites']['back_default'] }}" alt="[sem sprite]">
+        </p>
+        <p class="is-size-7">Shiny:</p>
+        <p class="image is-96x96">
+          <img src="{{ poke_info['sprites']['front_shiny'] }}" alt="[sem sprite]">
+        </p>
+        <p class="image is-96x96">
+          <img src="{{ poke_info['sprites']['back_shiny'] }}" alt="[sem sprite]">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong class="is-size-4">{{ poke_info['name'] | capitalize }}</strong>
+            <br/>
+            {{ species_info['flavor_text_entries'][1]['flavor_text'] }}
+          </p>
+          <hr/>
+          <p>
+            <strong>Pokédex nacional nº:</strong> {{ poke_info['id'] }}
+            <br/>
+            {% if species_info['evolves_from_species'] %}
+              <strong>Evolução de: </strong>
+              <a href="/pokemon/i/{{ species_info['evolves_from_species']['name'] }}">
+                {{ species_info['evolves_from_species']['name'] | capitalize }}</a>
+              <br/>
+            {% endif %}
+            <strong>Tipo(s):</strong>
+            {% for type in poke_info['types'] %}
+              [{{ type['type']['name'] | capitalize }}]
+            {% endfor %}
+            <br/>
+            <strong>Grupo(s):</strong>
+            {% for type in species_info['egg_groups'] %}
+              [{{ type['name'] | capitalize }}]
+            {% endfor %}
+            <br/>
+            <strong>Habitat: </strong>
+            {{ habitat_info['names'][1]['name'] | capitalize }}
+            <br/>
+            <br/>
+            <strong>Chance de captura: </strong>
+            {{ ((species_info['capture_rate'] / 255) * 100) | int }}%
+            <br/>
+            <strong>Altura: </strong>
+            {{ poke_info['height'] * 10 }}cm
+            <br/>
+            <strong>Peso: </strong>
+            {{ poke_info['weight'] / 10 }}kg
+            <br/>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'body.html' %}
+
+{% block content %}
+  <div class="container has-text-centered">
+
+    <div class="container is-inline-flex padded-top-2_0">
+      <div class="padded-right-2_0">
+        <button class="button is-rounded is-small is-success"
+                {% if current_offset == 0 %}disabled{% endif %}
+                onclick="document.location =
+                        '/pokedex/p/{{ previous_offset }}&{{ previous_limit }}/'">Anterior
+        </button>
+      </div>
+      <form id="offset_limit_form"
+            class=""
+            method="POST">
+        <div class="select is-rounded is-small">
+          <label>
+            <select id="user_limit"
+                    name="user_limit">
+              <option selected>{{ current_limit }}</option>
+              {% for num in range(10, 110, 10) %}
+                <option>{{ num }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+        <button class="button is-rounded is-small is-danger" type="submit">Filtrar</button>
+      </form>
+      <div class="padded-left-2_0">
+        <button class="button is-rounded is-small is-success"
+                {% if current_offset == page_list['offset'] %}disabled{% endif %}
+                onclick="document.location =
+                        '/pokedex/n/{{ next_offset }}&{{ next_limit }}/'">Próximo
+        </button>
+      </div>
+    </div>
+    <hr/>
+
+    <div id="pokemon_list" class="container has-text-centered">
+      {% for pokemon in pokemon_list %}
+        <div class="container is-inline-block margin-0_4">
+          <div class="container has-text-centered box-shadow border-radius">
+            <div class="poke_id_{{ pokemon['id'] }}">
+              <a href="/pokemon/i/{{ pokemon['name'] }}/">
+                <img id='d' class="poke_sprite"
+                     src="{{ pokemon['sprites']['front_default'] }}" alt="[sem sprite]"></a>
+              <br/>
+              <button id="button-default"
+                      class="button is-small is-primary is-light">Padrão
+              </button>
+              <button id="button-shiny"
+                      class="button is-small is-success is-light">Shiny
+              </button>
+
+              <p id="poke_number" class="is-size-7">Pokedex Nº: {{ pokemon['id'] }}</p>
+              <p id="poke_name" class="padded-bottom-0_4"><strong>{{ pokemon['name'] | capitalize }}</strong></p>
+              {#              <p class="poke_type">Type(s):#}
+              {#                {% for type in pokemon['types'] %}#}
+              {#                  {{ type['type']['name'] | capitalize }}#}
+              {#                {% endfor %}#}
+              {#              </p>#}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <hr/>
+
+    <div class="container is-fluid padded-bottom-2_0">
+      <nav class="pagination is-centered is-rounded is-small"
+           role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          {% for page in page_list['page_list'] %}
+            <li><a class="pagination-link
+              {% if page == [current_offset, '&', current_limit] | join %}is-current{% endif %}"
+                   href="/pokedex/f/{{ page }}/">{{ page_list['page_list'].index(page) + 1 }}
+            </a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+{% endblock %}

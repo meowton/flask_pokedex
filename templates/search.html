@@ -1,0 +1,15 @@
+<div class="container has-text-centered margin-top_0_5">
+  <div class="control is-inline-flex">
+    <label>
+      <input id="name_search"
+             class="input is-rounded"
+             placeholder="Nome do pokemon"
+             type="text">
+    </label>
+    <button id="search_button"
+            class="button is-primary is-rounded margin-left_0_5"
+            onclick="document.location = '/pokemon/i/' +
+                getTextFromInput('name_search')">Pesquisar
+    </button>
+  </div>
+</div>
