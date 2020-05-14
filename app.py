@@ -169,6 +169,7 @@ def pokemon_info(pokemon):
         for i in poke_list['results']:
             poke.update({i['name']: i['url']})
 
+        # TODO make this task asynchronous
         poke_info = requests.get(poke[pokemon]).json()
         species_info = requests.get(poke_info['species']['url']).json()
         habitat_info = requests.get(species_info['habitat']['url']).json()

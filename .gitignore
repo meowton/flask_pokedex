@@ -224,4 +224,4 @@ fabric.properties
 !.vscode/extensions.json
 *.code-workspace
 
-/.idea/dictionaries
+.idea/dictionaries
