@@ -13,6 +13,6 @@ itsdangerous==1.1.0
 multidict==4.7.5
 pip==20.1
 requests==2.23.0
-setuptools==40.8.0
+setuptools==65.5.1
 urllib3==1.25.9
 yarl==1.4.2
